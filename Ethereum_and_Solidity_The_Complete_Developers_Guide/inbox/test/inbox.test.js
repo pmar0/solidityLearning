@@ -37,5 +37,3 @@ describe('Inbox', () =>{
         assert.equal(message, NEW_MESSAGE)
     });
 });
-
-//https://rinkeby.infura.io/v3/cc723e044f0a4cc6a78dc3e287b41744
