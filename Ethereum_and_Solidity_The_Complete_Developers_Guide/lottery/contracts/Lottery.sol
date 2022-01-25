@@ -29,7 +29,7 @@ contract Lottery {
         players = new address[](0);
     }
 
-    function getPlayers() public view isOwner returns (address[]) {
+    function getPlayers() public view returns (address[]) {
         return players;
     }
 }
