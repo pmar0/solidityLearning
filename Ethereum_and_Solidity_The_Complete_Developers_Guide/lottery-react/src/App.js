@@ -45,14 +45,23 @@ class App extends React.Component {
 
     const accounts = await web3.eth.getAccounts();
 
-    this.setState({ value: '', message: 'Waiting on transaction success...' });
+    this.setState({ message: 'Waiting on transaction success...' });
 
-    await lottery.methods.enter().send({
-      from: accounts[0],
-      value: web3.utils.toWei(this.state.value, 'ether')
-    });
+    try{
+      await lottery.methods.enter().send({
+        from: accounts[0],
+        value: web3.utils.toWei(this.state.value, 'ether')
+      });
 
-    this.setState({ message: 'You have been entered!' });
+      this.setState({ value: '', message: 'You have been entered!' });
+    } catch (err) {
+      if(err.code === 4001) {
+        this.setState({ value: '', message: 'Transaction rejected.' });
+      } else {
+        this.setState({ value: '', message: 'Some other shit happened, check yo console logs.' });
+        console.log(err);
+      }
+    }
   };
 
   pickWinner = async (event) => {
